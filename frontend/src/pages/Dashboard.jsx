@@ -48,11 +48,11 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const [coursesRes, facultyRes, roomsRes, timetablesRes, notificationsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/courses"),
-          axios.get("http://localhost:5000/api/faculty"),
-          axios.get("http://localhost:5000/api/rooms"),
-          axios.get("http://localhost:5000/api/timetables"),
-          axios.get("http://localhost:5000/api/notifications"),
+          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/courses"),
+          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/faculty"),
+          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/rooms"),
+          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/timetables"),
+          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/notifications"),
         ])
 
         setCourses(coursesRes.data)

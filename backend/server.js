@@ -14,8 +14,6 @@ dotenv.config({ quiet: true });
 
 const app = express();
 
-app.use(express.json());
-
 app.use(
   cors({
     origin: [
@@ -24,8 +22,14 @@ app.use(
       "https://adorable-beijinho-dbdb8f.netlify.app",
     ],
     credentials: true,
-  }),
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
+
+app.options("*", cors()); // Handle preflight requests for all routes
+
+app.use(express.json());
 
 app.use("/api/courses", coursesRouter);
 app.use("/api/faculty", facultyRouter);
