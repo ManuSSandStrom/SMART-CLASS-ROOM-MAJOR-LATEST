@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { UserProfile } from "@/components/UserProfile"
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -462,6 +463,10 @@ export default function TimetablePage() {
               )
             })}
           </nav>
+        </div>
+        {/* User Profile at bottom */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
         </div>
       </aside>
 

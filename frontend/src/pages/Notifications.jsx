@@ -22,6 +22,7 @@ import {
   Check,
 } from "lucide-react"
 import { Link } from "react-router-dom"
+import { UserProfile } from "@/components/UserProfile"
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([])
@@ -45,7 +46,7 @@ export default function NotificationsPage() {
   const fetchNotifications = async () => {
     setLoading(true)
     try {
-      const res = await axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/notifications")
+      const res = await axios.get("http://localhost:5000/api/notifications")
       setNotifications(Array.isArray(res.data) ? res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) : [])
     } catch (error) {
       console.error("Error fetching notifications:", error)
@@ -63,7 +64,7 @@ export default function NotificationsPage() {
     e.preventDefault()
     setFormLoading(true)
     try {
-      await axios.post("https://smart-class-room-backend-5ne7.onrender.com/api/notifications", formData)
+      await axios.post("http://localhost:5000/api/notifications", formData)
       resetForm()
       setShowForm(false)
       fetchNotifications()
@@ -77,7 +78,7 @@ export default function NotificationsPage() {
   const confirmDeleteNotification = async () => {
     if (!notificationToDelete) return
     try {
-      await axios.delete(`https://smart-class-room-backend-5ne7.onrender.com/api/notifications/${notificationToDelete._id}`)
+      await axios.delete(`http://localhost:5000/api/notifications/${notificationToDelete._id}`)
       setNotifications((prev) => prev.filter((n) => n._id !== notificationToDelete._id))
     } catch (error) {
       console.error("Error deleting notification:", error)
@@ -88,7 +89,7 @@ export default function NotificationsPage() {
 
   const handleMarkAsRead = async (id) => {
     try {
-      await axios.put(`https://smart-class-room-backend-5ne7.onrender.com/api/notifications/${id}/read`)
+      await axios.put(`http://localhost:5000/api/notifications/${id}/read`)
       setNotifications((prev) => prev.map((n) => (n._id === id ? { ...n, isRead: true } : n)))
     } catch (error) {
       console.error("Error marking as read:", error)
@@ -98,7 +99,7 @@ export default function NotificationsPage() {
   const handleMarkAllRead = async () => {
     const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n._id)
     try {
-      await Promise.all(unreadIds.map((id) => axios.put(`https://smart-class-room-backend-5ne7.onrender.com/api/notifications/${id}/read`)))
+      await Promise.all(unreadIds.map((id) => axios.put(`http://localhost:5000/api/notifications/${id}/read`)))
       fetchNotifications()
     } catch (error) {
       console.error("Error marking all as read:", error)
@@ -201,6 +202,10 @@ export default function NotificationsPage() {
               )
             })}
           </nav>
+        </div>
+        {/* User Profile at bottom */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
         </div>
       </aside>
 

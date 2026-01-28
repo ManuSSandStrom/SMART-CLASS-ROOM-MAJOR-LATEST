@@ -9,6 +9,7 @@ import { CourseForm } from "@/components/CourseForm"
 import { DataTable } from "@/components/Data-table"
 import { Plus, BookOpen, Users, Calendar, LayoutDashboard, Home, Bell } from "lucide-react"
 import { Link } from "react-router-dom"
+import { UserProfile } from "@/components/UserProfile"
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([])
@@ -308,6 +309,10 @@ export default function CoursesPage() {
               )
             })}
           </nav>
+        </div>
+        {/* User Profile at bottom */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
         </div>
       </div>
 

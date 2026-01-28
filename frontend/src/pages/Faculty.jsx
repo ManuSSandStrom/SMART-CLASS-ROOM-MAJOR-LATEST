@@ -8,6 +8,7 @@ import { FacultyForm } from "@/components/Faculty-Form"
 import { DataTable } from "@/components/Data-table"
 import { Plus, Users, Mail, Clock, Calendar, LayoutDashboard, BookOpen, Home, Bell } from "lucide-react"
 import { Link } from "react-router-dom"
+import { UserProfile } from "@/components/UserProfile"
 
 export default function FacultyPage() {
   const [faculty, setFaculty] = useState([])
@@ -39,7 +40,7 @@ export default function FacultyPage() {
   const fetchFaculty = async () => {
     setLoading(true)
     try {
-      const res = await axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/faculty")
+      const res = await axios.get("http://localhost:5000/api/faculty")
       setFaculty(Array.isArray(res.data) ? res.data : [])
     } catch (error) {
       console.error(error)
@@ -57,9 +58,9 @@ export default function FacultyPage() {
     setFormLoading(true)
     try {
       if (editingFaculty) {
-        await axios.put(`https://smart-class-room-backend-5ne7.onrender.com/api/faculty/${editingFaculty._id}`, data)
+        await axios.put(`http://localhost:5000/api/faculty/${editingFaculty._id}`, data)
       } else {
-        await axios.post("https://smart-class-room-backend-5ne7.onrender.com/api/faculty", data)
+        await axios.post("http://localhost:5000/api/faculty", data)
       }
       setShowForm(false)
       setEditingFaculty(null)
@@ -73,7 +74,7 @@ export default function FacultyPage() {
 
   const handleDelete = async (facultyMember) => {
     try {
-      await axios.delete(`https://smart-class-room-backend-5ne7.onrender.com/api/faculty/${facultyMember._id}`)
+      await axios.delete(`http://localhost:5000/api/faculty/${facultyMember._id}`)
       if (editingFaculty && editingFaculty._id === facultyMember._id) {
         setEditingFaculty(null)
         setShowForm(false)
@@ -273,6 +274,10 @@ export default function FacultyPage() {
               )
             })}
           </nav>
+        </div>
+        {/* User Profile at bottom */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
         </div>
       </div>
 

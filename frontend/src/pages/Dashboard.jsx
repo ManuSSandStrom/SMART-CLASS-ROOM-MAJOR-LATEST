@@ -21,6 +21,7 @@ import {
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Chatbot } from "@/components/Chatbot"
+import { UserProfile } from "@/components/UserProfile"
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true)
@@ -48,11 +49,11 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const [coursesRes, facultyRes, roomsRes, timetablesRes, notificationsRes] = await Promise.all([
-          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/courses"),
-          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/faculty"),
-          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/rooms"),
-          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/timetables"),
-          axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/notifications"),
+          axios.get("http://localhost:5000/api/courses"),
+          axios.get("http://localhost:5000/api/faculty"),
+          axios.get("http://localhost:5000/api/rooms"),
+          axios.get("http://localhost:5000/api/timetables"),
+          axios.get("http://localhost:5000/api/notifications"),
         ])
 
         setCourses(coursesRes.data)
@@ -278,7 +279,10 @@ export default function Dashboard() {
             })}
           </nav>
         </div>
-        <div className="absolute bottom-6 left-6 right-6"></div>
+        {/* User Profile at bottom of sidebar */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
+        </div>
       </div>
 
       <div className="flex-1 overflow-auto relative z-10">
@@ -301,7 +305,7 @@ export default function Dashboard() {
                   View Timetables
                 </Button>
               </Link>
-              <Link to="/timetables/generate">
+              <Link to="/timetables">
                 <Button
                   variant="outline"
                   className="border-slate-600/50 bg-slate-800/30 backdrop-blur-sm hover:bg-slate-700/40 text-slate-200 hover:border-slate-500/50 shadow-md hover:shadow-lg transition-all duration-300 px-6 py-3"
@@ -373,7 +377,7 @@ export default function Dashboard() {
                       <p className="text-slate-400 mb-8 max-w-md mx-auto">
                         Create your first timetable to get started with scheduling your classes and resources.
                       </p>
-                      <Link to="/timetables/generate">
+                      <Link to="/timetables">
                         <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300">
                           <Plus className="h-5 w-5 mr-2" />
                           Generate Timetable
@@ -462,7 +466,7 @@ export default function Dashboard() {
                       Add Room
                     </Button>
                   </Link>
-                  <Link to="/timetables/generate">
+                  <Link to="/timetables">
                     <Button className="w-full justify-start bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 h-12">
                       <Sparkles className="h-5 w-5 mr-3" />
                       Generate Timetable

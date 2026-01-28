@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { DataTable } from "@/components/Data-table"
 import { Plus, Building, Users, Calendar, LayoutDashboard, BookOpen, Home, Bell, Edit, X, Clock } from "lucide-react"
 import { Link } from "react-router-dom"
+import { UserProfile } from "@/components/UserProfile"
 
 export default function RoomPage() {
   const [rooms, setRooms] = useState([])
@@ -90,7 +91,7 @@ export default function RoomPage() {
   const fetchRooms = async () => {
     setLoading(true)
     try {
-      const res = await axios.get("https://smart-class-room-backend-5ne7.onrender.com/api/rooms")
+      const res = await axios.get("http://localhost:5000/api/rooms")
       setRooms(res.data)
     } catch (error) {
       console.error("Error fetching rooms:", error)
@@ -145,9 +146,9 @@ export default function RoomPage() {
       }
 
       if (editingRoom) {
-        await axios.put(`https://smart-class-room-backend-5ne7.onrender.com/api/rooms/${editingRoom._id}`, payload)
+        await axios.put(`http://localhost:5000/api/rooms/${editingRoom._id}`, payload)
       } else {
-        await axios.post("https://smart-class-room-backend-5ne7.onrender.com/api/rooms", payload)
+        await axios.post("http://localhost:5000/api/rooms", payload)
       }
 
       resetForm()
@@ -165,7 +166,7 @@ export default function RoomPage() {
     if (!confirm("Are you sure you want to delete this room?")) return
 
     try {
-      await axios.delete(`https://smart-class-room-backend-5ne7.onrender.com/api/rooms/${id}`)
+      await axios.delete(`http://localhost:5000/api/rooms/${id}`)
       if (editingRoom && editingRoom._id === id) {
         resetForm()
         setShowForm(false)
@@ -383,6 +384,10 @@ export default function RoomPage() {
               )
             })}
           </nav>
+        </div>
+        {/* User Profile at bottom */}
+        <div className="absolute bottom-6 left-6 right-6">
+          <UserProfile />
         </div>
       </div>
       {/* </CHANGE> */}
