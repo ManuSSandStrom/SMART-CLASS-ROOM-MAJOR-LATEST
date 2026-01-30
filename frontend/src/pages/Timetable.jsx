@@ -27,7 +27,7 @@ import {
 
 // Axios configuration
 const api = axios.create({
-  baseURL: "https://smart-class-room-backend-5ne7.onrender.com/api",
+  baseURL: `${import.meta.env.VITE_API_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },

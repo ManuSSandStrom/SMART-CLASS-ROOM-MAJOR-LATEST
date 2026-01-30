@@ -38,7 +38,7 @@ export function Chatbot({ isOpen, onClose, context }) {
 
     try {
       // API call to your backend AI chat route
-      const res = await axios.post("https://smart-class-room-backend-5ne7.onrender.com/api/ai/chat", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/ai/chat`, {
         message: currentInput,
         context: context, // Pass the dashboard context to the AI
       });

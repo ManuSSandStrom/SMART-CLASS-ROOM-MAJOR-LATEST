@@ -49,11 +49,11 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const [coursesRes, facultyRes, roomsRes, timetablesRes, notificationsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/courses"),
-          axios.get("http://localhost:5000/api/faculty"),
-          axios.get("http://localhost:5000/api/rooms"),
-          axios.get("http://localhost:5000/api/timetables"),
-          axios.get("http://localhost:5000/api/notifications"),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/courses`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/faculty`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/rooms`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/timetables`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/notifications`),
         ])
 
         setCourses(coursesRes.data)
